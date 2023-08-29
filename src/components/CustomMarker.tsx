@@ -1,6 +1,6 @@
 import { useMap } from 'react-leaflet';
 import { SelectLocationEvent } from '../types';
-import L, { Marker } from 'leaflet';
+import L, { Icon, Marker } from 'leaflet';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
@@ -35,7 +35,18 @@ const CustomMarker = ({ zoom, onSelectedLocation }: SelectLocationEvent) => {
       }
 
       oldMarker.current?.remove();
-      const newMarker = L.marker(e.latlng);
+      const newMarker = L.marker(e.latlng, {
+        icon: new Icon({
+          iconUrl:
+            'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+          shadowUrl:
+            'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41],
+        }),
+      });
       oldMarker.current = newMarker;
       newMarker.bindPopup(label).openPopup();
       newMarker.addTo(map);
