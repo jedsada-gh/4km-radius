@@ -14,3 +14,7 @@ export type SelectLocationEvent = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSelectedLocation: (data: any) => void;
 };
+
+export type SearchLocationEvent = {
+  onClearCircleRadius: () => void;
+} & SelectLocationEvent;

@@ -22,6 +22,11 @@ const MyLocation = ({
       cacheLocation: true,
       strings: { title: 'Location' },
       locateOptions: { enableHighAccuracy: true },
+      clickBehavior: {
+        inView: 'setView',
+        outOfView: 'setView',
+        inViewNotFollowing: 'inView',
+      },
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -51,6 +51,11 @@ export default function App() {
         />
         <SearchLocation
           zoom={matches ? 13.5 : 13}
+          onClearCircleRadius={() => {
+            searchMarker.current?.remove();
+            pinMarker.current?.remove();
+            setShowCircle(false);
+          }}
           onSelectedLocation={(data) => {
             searchMarker.current = data.marker;
             setLocation({

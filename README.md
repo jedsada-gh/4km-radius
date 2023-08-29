@@ -2,6 +2,8 @@
 
 4km Radius is a Proof of Concept (POC) project that calculates and displays a 4km radius from the user's current location on a map. The project is built using Vite.js, React, TypeScript, and Leaflet, making use of the leaflet-geosearch and leaflet.locatecontrol plugins for enhanced functionality.
 
+![banner](public/banner.png)
+
 ## Features
 
 - Display a 4km radius from the user's current location.
