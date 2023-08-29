@@ -5,7 +5,7 @@ import { useEffect, useMemo } from 'react';
 import { useMap } from 'react-leaflet';
 import { SelectLocationEvent } from '../types';
 
-const SearchLocation = ({ onSelectedLocation }: SelectLocationEvent) => {
+const SearchLocation = ({ zoom, onSelectedLocation }: SelectLocationEvent) => {
   const map = useMap();
   const searchController = useMemo(() => {
     return new GeoSearchControl({
@@ -25,7 +25,7 @@ const SearchLocation = ({ onSelectedLocation }: SelectLocationEvent) => {
     map.on('geosearch/showlocation', (e: any) => {
       onSelectedLocation(e);
       setTimeout(() => {
-        map.setZoom(13.5);
+        map.setZoom(zoom);
       }, 500);
     });
 

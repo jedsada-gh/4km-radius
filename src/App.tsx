@@ -8,6 +8,7 @@ import { useRef, useState } from 'react';
 import MyLocation from './components/MyLocation';
 import SearchLocation from './components/SearchLocation';
 import CustomMarker from './components/CustomMarker';
+import { useMediaQuery } from './hooks/useMediaQuery';
 
 export default function App() {
   const [location, setLocation] = useState<LatLngLiteral>({
@@ -17,15 +18,21 @@ export default function App() {
   const [isShowCircle, setShowCircle] = useState<boolean>(false);
   const searchMarker = useRef<Marker>();
   const pinMarker = useRef<Marker>();
+  const matches = useMediaQuery('(min-width: 767px)');
 
   return (
     <div>
-      <MapContainer center={location} zoom={12} scrollWheelZoom={true}>
+      <MapContainer
+        center={location}
+        zoom={matches ? 14 : 12.5}
+        scrollWheelZoom={true}
+      >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <MyLocation
+          zoom={matches ? 13.9 : 12.5}
           onLocationChange={(latlng) => {
             if (
               searchMarker.current?.getLatLng() === undefined &&
@@ -41,11 +48,9 @@ export default function App() {
             setLocation(latlng);
             setShowCircle(true);
           }}
-          onLocationError={() => {
-            setShowCircle(false);
-          }}
         />
         <SearchLocation
+          zoom={matches ? 13.5 : 13}
           onSelectedLocation={(data) => {
             searchMarker.current = data.marker;
             setLocation({
@@ -55,6 +60,7 @@ export default function App() {
           }}
         />
         <CustomMarker
+          zoom={matches ? 13.9 : 12.5}
           onSelectedLocation={(data) => {
             pinMarker.current = data.marker;
             setLocation(data.latlng);

@@ -5,8 +5,8 @@ import L from 'leaflet';
 import { MyLocationEvent } from '../types';
 
 const MyLocation = ({
+  zoom,
   onLocationChange,
-  onLocationError,
   onForceUpdateLocation,
 }: MyLocationEvent) => {
   const map = useMap();
@@ -15,7 +15,7 @@ const MyLocation = ({
   const locate = useMemo(() => {
     return new Locate({
       flyTo: true,
-      initialZoomLevel: 13.9,
+      initialZoomLevel: zoom,
       drawCircle: false,
       showPopup: false,
       showCompass: true,
@@ -27,30 +27,37 @@ const MyLocation = ({
   }, []);
 
   useEffect(() => {
-    locate.addTo(map);
-    locate.start();
+    try {
+      locate.addTo(map);
+      locate.start();
 
-    const myLocBtn = document.getElementsByClassName(
-      'leaflet-bar-part leaflet-bar-part-single'
-    );
+      const myLocBtn = document.getElementsByClassName(
+        'leaflet-bar-part leaflet-bar-part-single'
+      );
 
-    for (let index = 0; index < myLocBtn.length; index++) {
-      const element = myLocBtn[index];
-      element.addEventListener('click', () => {
-        if (myLocation.current) {
-          onForceUpdateLocation(myLocation.current);
-        }
+      for (let index = 0; index < myLocBtn.length; index++) {
+        const element = myLocBtn[index];
+        element.addEventListener('click', () => {
+          if (myLocation.current) {
+            onForceUpdateLocation(myLocation.current);
+          }
+        });
+      }
+
+      map.on('locationfound', (e) => {
+        myLocation.current = e.latlng;
+        onLocationChange(e.latlng);
       });
+
+      map.on('locationerror', () => {
+        myLocation.current = map.getCenter();
+        onLocationChange(myLocation.current);
+        console.error("can't get the current user location");
+      });
+    } catch (e) {
+      myLocation.current = map.getCenter();
+      onLocationChange(myLocation.current);
     }
-
-    map.on('locationfound', (e) => {
-      myLocation.current = e.latlng;
-      onLocationChange(e.latlng);
-    });
-
-    map.on('locationerror', () => {
-      onLocationError && onLocationError("Can't get the current user location");
-    });
 
     return () => {
       locate.stop();

@@ -15,3 +15,22 @@ body {
   margin: 0px;
   padding: 0px;
 }
+
+.leaflet-geosearch-bar {
+  width: 420px;
+  max-width: calc(100% - 110px);
+}
+
+.leaflet-control-geosearch form input {
+  font-size: 16px;
+  height: 40px !important;
+}
+
+.leaflet-touch .leaflet-control-geosearch button.reset {
+  height: 40px !important;
+  font-size: 20px;
+}
+
+.leaflet-control-geosearch .results > * {
+  font-size: 14px;
+}

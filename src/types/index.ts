@@ -5,11 +5,12 @@ export type BaseLocationEvent = {
 };
 
 export type MyLocationEvent = {
-  onLocationError: (message: string) => void;
+  zoom: number;
   onForceUpdateLocation: (latlng: LatLngLiteral) => void;
 } & BaseLocationEvent;
 
 export type SelectLocationEvent = {
+  zoom: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSelectedLocation: (data: any) => void;
 };

@@ -7,7 +7,7 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { useCallback, useMemo, useRef } from 'react';
 import debounce from 'lodash/debounce';
 
-const CustomMarker = ({ onSelectedLocation }: SelectLocationEvent) => {
+const CustomMarker = ({ zoom, onSelectedLocation }: SelectLocationEvent) => {
   const oldMarker = useRef<Marker>();
   const provider = useMemo(() => {
     return new OpenStreetMapProvider({
@@ -40,7 +40,7 @@ const CustomMarker = ({ onSelectedLocation }: SelectLocationEvent) => {
       newMarker.bindPopup(label).openPopup();
       newMarker.addTo(map);
       onSelectedLocation({ latlng: e.latlng, marker: newMarker });
-      map.flyTo(e.latlng, 13.9, { animate: true });
+      map.flyTo(e.latlng, zoom, { animate: true });
     }, 500),
     []
   );
