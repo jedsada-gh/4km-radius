@@ -4,6 +4,8 @@
 
 ![banner](public/banner.png)
 
+#### You can check out the [demo](https://4km.20cnx.xyz/)!
+
 ## Features
 
 - Display a 4km radius from the user's current location.
@@ -33,3 +35,7 @@
 ## Contributing
 
 Contributions are welcome! If you have any ideas, suggestions, or improvements, feel free to create an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License.
